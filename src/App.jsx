@@ -4,9 +4,9 @@ import trashcanImage from './components/trashcan.webp';
 
 function App() {
   const [tasks, setTasks] = useState({
-    todo: ['Task 1', 'Task 2', 'Task 3'],
-    ongoing: ['Task 4'],
-    completed: ['Task 5'],
+    todo: ['Task 1'],
+    ongoing: ['Task 2'],
+    completed: ['Task 3'],
     trash: []
   });
 
@@ -51,11 +51,18 @@ function App() {
     }
   };
 
+  const addTaskHandler = (task) => {
+    const newTasks = { ...tasks };
+    newTasks.todo = [...newTasks.todo, task];
+    setTasks(newTasks);
+  };
+
   return (
     <div className="App">
       <div className="card" id="todo" onDrop={(e) => dropHandler(e, 'todo')} onDragOver={dragOverHandler}>
+        <button onClick={() => addTaskHandler(prompt('Enter task name'))}>Add Task</button>
         {tasks.todo.map((task, index) => (
-          <div 
+          <div className='task'
             key={index} 
             draggable 
             onDragStart={(e) => dragStartHandler(e, task, 'todo')} 
@@ -68,7 +75,7 @@ function App() {
       </div>
       <div className="card" id="ongoing" onDrop={(e) => dropHandler(e, 'ongoing')} onDragOver={dragOverHandler}>
         {tasks.ongoing.map((task, index) => (
-          <div 
+          <div className='task'
             key={index} 
             draggable 
             onDragStart={(e) => dragStartHandler(e, task, 'ongoing')} 
@@ -81,7 +88,7 @@ function App() {
       </div>
       <div className="card" id="completed" onDrop={(e) => dropHandler(e, 'completed')} onDragOver={dragOverHandler}>
         {tasks.completed.map((task, index) => (
-          <div 
+          <div className='task'
             key={index} 
             draggable 
             onDragStart={(e) => dragStartHandler(e, task, 'completed')} 
